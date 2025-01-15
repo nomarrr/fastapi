@@ -18,20 +18,29 @@ app = FastAPI()
 oauth2 = OAuth2PasswordBearer(tokenUrl = "login")
 ALGORITHM = "HS256"
 SECRET = "JDFBGERGH9H9h93G4sf0N672S"
+# ... imports existentes ...
+
 origins = [
-    "http://localhost:4200",    # Angular dev server
-    "http://localhost:8000",    # FastAPI dev server
-    "https://fastapi-production-6897.up.railway.app",  # Tu API en Railway
-    "https://nomarrr.github.io"  # Tu frontend en GitHub Pages
+    "http://localhost:4200",
+    "https://localhost:4200",
+    "http://localhost:8000",
+    "https://localhost:8000",
+    "https://fastapi-production-6897.up.railway.app",
+    "https://nomarrr.github.io",
+    "http://nomarrr.github.io"  # Agregado para manejar redirecciones
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # En producción, especifica los dominios permitidos
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600
 )
+
+# ... resto del código ...
 UPLOAD_FOLDER = "exerciseImg"
 UPLOAD_FOLDER2 = "profileImages"
 UPLOAD_FOLDER_RECIPES = "recipeImages"
